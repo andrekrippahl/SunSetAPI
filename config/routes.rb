@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "sunset_records/:id" => "sunset_records#show", as: :sunset_record
 
   get "/sunsets", to: "sunsets#index"
+  get "/sunsets/stream", to: "sunsets#stream"
 
   post "sunset_records" => "sunset_records#create", as: :sunset_records_create
 

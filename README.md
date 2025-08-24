@@ -65,7 +65,7 @@ curl "http://localhost:3000/sunsets?location=Lisbon&start=2025-01-01&end=2025-01
 ```
 
 ```plaintext
-METHOD /sunsets
+METHOD /sunsets/steram
 Streams one record per date so the UI can render progressively.
 ```
 ```bash

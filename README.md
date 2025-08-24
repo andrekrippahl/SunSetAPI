@@ -38,16 +38,53 @@ Environment variables (optional):
 ## Database creation
 
 ```bash
-bin/rails db:create
+# clone
+git clone https://github.com/andrekrippahl/SunSetAPI.git
+cd SunSetAPI
+
+# install gems
+bundle install
+
+# database
+rails db:setup
+
+# run
+rails s
+# server: http://localhost:3000
 ```
 ---
 
-## Database initialization
+## Endpoints
 
-```bash 
-bin/rails db:migrate
+### Request
+```plaintext
+METHOD /sunsets
 ```
+```bash
+curl "http://localhost:3000/sunsets?location=Lisbon&start=2025-01-01&end=2025-01-03"
+```
+
+### Response
+```json
+[
+    {
+        "id": 405,
+        "location": null,
+        "date": "2025-08-21",
+        "sunrise": "2025-08-21T05:50:46+00:00",
+        "sunset": "2025-08-21T19:18:19+00:00",
+        "golden_hour": "2025-08-21T05:50:46+00:00 - 2025-08-21T19:18:19+00:00",
+        "created_at": "2025-08-23T13:15:50.347Z",
+        "updated_at": "2025-08-23T13:15:50.347Z",
+        "city": "Beja",
+        "latitude": 38.0154479,
+        "longitude": -7.8650368
+    }
+]
+```
+
 ---
+
 
 ## Run test suits
 

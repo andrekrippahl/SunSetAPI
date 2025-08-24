@@ -1,13 +1,13 @@
 class SunsetsController < ApplicationController
-  include ActionController::Live  # needed only for #stream
+  include ActionController::Live  
 
-  # Classic endpoint: collect then return JSON
+
   def index
     location   = params[:location]
     start_date = parse_date(params[:start])
     end_date   = parse_date(params[:end])
 
-    # raise a domain error on bad params
+   
     raise MissingParamsError.new(context: params.slice(:location, :start, :end)) \
       if location.blank? || start_date.nil? || end_date.nil? || start_date > end_date
 
@@ -33,7 +33,6 @@ class SunsetsController < ApplicationController
     render json: results
 
   rescue DomainError => e
-      # render your structured error (same shape as SSE)
       render json: ErrorSerializer.call(e), status: e.http_status
   rescue => e
       Rails.logger.error("[/sunsets 500] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
@@ -57,7 +56,7 @@ class SunsetsController < ApplicationController
       return
     end
 
-    # Resolve once (emit error and close if it fails)
+    # Resolve once 
     resolved = SunsetApiService.resolve(location)
     city, lat, lng = resolved.values_at(:city, :latitude, :longitude)
 
@@ -82,7 +81,6 @@ class SunsetsController < ApplicationController
 
     write_event("done", { done: true })
   rescue DomainError => e
-    # Step 7: emit domain error in the stream and close
     write_event("error", ErrorSerializer.call(e)[:error])
   rescue => e
     Rails.logger.error("[SSE] #{e.class}: #{e.message}")

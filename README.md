@@ -39,20 +39,21 @@ Environment variables (optional):
 
 ```bash
 bin/rails db:create
-
+```
 ---
 
 ## Database initialization
 
 ```bash 
 bin/rails db:migrate
-
+```
 ---
 
 ## Run test suits
 
 ```bash 
 bundle exec rspec
+```
 
 Included request specs cover:
 - 400 on missing/invalid params

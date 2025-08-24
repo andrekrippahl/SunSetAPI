@@ -58,14 +58,14 @@ rails s
 
 ### Request
 ```plaintext
-METHOD /sunsets
+GET /sunsets
 ```
 ```bash
 curl "http://localhost:3000/sunsets?location=Lisbon&start=2025-01-01&end=2025-01-03"
 ```
 
 ```plaintext
-METHOD /sunsets/steram
+GET /sunsets/steram
 Streams one record per date so the UI can render progressively.
 ```
 ```bash
@@ -131,7 +131,7 @@ curl "http://localhost:3000/sunsets?location=Bejaaa&start=2025-08-21&end=2025-08
 ---
 
 
-## Run test suits
+## Run test suites
 
 ```bash 
 bundle exec rspec

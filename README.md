@@ -82,6 +82,43 @@ curl "http://localhost:3000/sunsets?location=Lisbon&start=2025-01-01&end=2025-01
     }
 ]
 ```
+200 OK
+
+```bash
+curl "http://localhost:3000/sunsets?start=2025-01-01&end=2025-01-03"
+```
+
+```json
+{
+    "error": {
+        "code": "missing_params",
+        "message": "Missing or invalid parameters.",
+        "hint": "Required query params: location, start, end.",
+        "context": {
+            "start": "2025-08-21",
+            "end": "2025-08-21"
+        }
+    }
+}
+```
+400 Bad Request
+
+```bash
+curl "http://localhost:3000/sunsets?location=Bejaaa&start=2025-08-21&end=2025-08-21"
+```
+```json
+{
+    "error": {
+        "code": "geocoding_failed",
+        "message": "Could not resolve location.",
+        "hint": "Try a city name like 'Lisbon.'",
+        "context": {
+            "location": "Bejaaa"
+        }
+    }
+}
+```
+422 Unprocessable Content
 
 ---
 
@@ -98,6 +135,22 @@ Included request specs cover:
 - Happy path: inserts and returns records
 - Uses cached records (no upstream call)
 - Maps upstream timeout to 504
+
+---
+
+## Caching & performance
+
+- For a requested range, the controller does one DB query:
+WHERE city = ? AND date BETWEEN ? AND ?
+- For dates missing in the DB, it:
+
+- - Calls the Sunrise–Sunset API
+
+- - Stores a new sunset_records row
+
+- - Streams/returns the row
+
+- Subsequent requests for the same input are served from DB.
 
 ---
 

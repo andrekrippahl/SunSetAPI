@@ -35,7 +35,7 @@ Environment variables (optional):
 
 ---
 
-## Database creation
+## Project setup
 
 ```bash
 # clone

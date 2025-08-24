@@ -64,6 +64,14 @@ METHOD /sunsets
 curl "http://localhost:3000/sunsets?location=Lisbon&start=2025-01-01&end=2025-01-03"
 ```
 
+```plaintext
+METHOD /sunsets
+Streams one record per date so the UI can render progressively.
+```
+```bash
+curl -N "http://localhost:3000/sunsets/stream?location=Lisbon&start=2025-01-01&end=2025-01-03"
+```
+
 ### Response
 ```json
 [
@@ -144,11 +152,11 @@ Included request specs cover:
 WHERE city = ? AND date BETWEEN ? AND ?
 - For dates missing in the DB, it:
 
-- - Calls the Sunrise–Sunset API
+    - Calls the Sunrise–Sunset API
 
-- - Stores a new sunset_records row
+    - Stores a new sunset_records row
 
-- - Streams/returns the row
+    - Streams/returns the row
 
 - Subsequent requests for the same input are served from DB.
 
